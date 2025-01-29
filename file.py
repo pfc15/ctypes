@@ -1,8 +1,8 @@
 import ctypes
 from ctypes import *
 
-M = 2
-R = 0.2
+M = 4
+R = 0.0
 
 
 libc = cdll.LoadLibrary("libc.so.6") 
@@ -29,10 +29,13 @@ def sampen(lista_numeros):
     tamanho = len(lista_numeros)
     array_type = c_double*tamanho
     array = array_type(*lista_numeros)
-
-    result = _func.sampen2(array, c_int(M), c_double(R), c_int(tamanho)) # sampen2(lista, m, r, n)
-    list_result = list(cast(result, ctypes.POINTER(ctypes.c_double * 3)).contents)
-    print(list(list_result))
+    retorno = []
+    for r in range(int(R*10), 10):
+        result = _func.sampen2(array, c_int(M), c_double(float(r/10)), c_int(tamanho)) # sampen2(lista, m, r, n)
+        list_result = list(cast(result, ctypes.POINTER(ctypes.c_double * M)).contents)
+        retorno.append(tuple(list_result))
+        print('--'*25)
+    return retorno
     
     
 
@@ -79,7 +82,7 @@ lista = ler_sampentest("./sampentest.txt")
 # lista = ler_sampentest("./limpo.txt")
 
 
-sampen(lista)
+print(sampen(lista))
 
 
 # SampEn(0,0.2,6782) = 0.000551
