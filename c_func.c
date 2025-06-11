@@ -264,7 +264,7 @@ double* sampen2(double *y, int mm, double r, int n)
 	s1[m] = (double) sqrt((double) (v1[m]));
     }
 
-    double* retorno = (double*) malloc(sizeof(double)*mm);
+    double* retorno = (double*) malloc(sizeof(double)*(mm+1));
 
 
     for (m = 0; m < mm; m++) {
@@ -278,7 +278,6 @@ double* sampen2(double *y, int mm, double r, int n)
         printf("SampEn(%d,%g,%d) = %lf (standard deviation = %lf)\n",
 		   m, r, n, -log(p[m]), s1[m]);
         retorno[m] = -log(p[m]);
-
     }
 	    
     }
